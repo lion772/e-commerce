@@ -7,5 +7,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 // 'collectionResourceRel' is the name of the actual JSON entry
 //path: '/product-category', instead of adding 's' in the end.
 @RepositoryRestResource(collectionResourceRel = "productCategory", path = "product-category")
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
-}
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {}

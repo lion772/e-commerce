@@ -1,5 +1,5 @@
 <ng-container *ngIf="productList$ | async as products">
   <ul *ngFor="let product of products">
-    <li>{{ product }}</li>
+    <li>{{ product.name }}: {{ product.unitPrice | currency }}</li>
   </ul>
 </ng-container>
