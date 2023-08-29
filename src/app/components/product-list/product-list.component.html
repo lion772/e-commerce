@@ -1,5 +1,20 @@
-<ng-container *ngIf="productList$ | async as products">
-  <ul *ngFor="let product of products">
-    <li>{{ product.name }}: {{ product.unitPrice | currency : "USD" }}</li>
-  </ul>
-</ng-container>
+<div class="container">
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Units in Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="productList$ | async as products">
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.unitPrice | currency : "USD" }}</td>
+          <td>{{ product.unitsInStock }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
