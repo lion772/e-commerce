@@ -2,6 +2,8 @@ package com.ecommercebackend.config;
 
 import com.ecommercebackend.entity.Product;
 import com.ecommercebackend.entity.ProductCategory;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -13,6 +15,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
   @Override
   public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
     HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
+    EntityManager entityManager;
+
+    @Autowired
+    public MyDataRestConfig(EntityManager theEntityManager) {
+      entityManager = theEntityManager;
+    }
 
     //disable HTTP methods for Product: PUT, POST, DELETE
     config.getExposureConfiguration()
