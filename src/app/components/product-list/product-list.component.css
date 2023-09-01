@@ -9,7 +9,7 @@
 }
 
 .product-box img {
-  width: 150px;
+  width: 100%;
 }
 
 .product-box a {
@@ -30,12 +30,20 @@
   display: grid;
   place-items: center;
   border-radius: 10px; /* Add rounded corners */
-  background-color: ghostwhite;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   overflow: scroll;
   white-space: nowrap; /* Prevent text from wrapping to the next line */
   text-overflow: ellipsis;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.product-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
 .price {
   margin: 15px 0 0;
   font-weight: 800;
