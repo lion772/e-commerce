@@ -21,8 +21,8 @@ export class ProductListComponent implements OnInit {
   public ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.categoryId = params['id'];
+      this.fetchProducts();
     });
-    this.fetchProducts();
   }
 
   private fetchProducts() {

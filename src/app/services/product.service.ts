@@ -18,10 +18,9 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   retrieveProductList(categoryId: string = '1'): Observable<Product[]> {
-    if (categoryId !== '1') {
-      this.baseUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
-    }
-    return this.http.get<GetResponse>(this.baseUrl).pipe(
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+
+    return this.http.get<GetResponse>(searchUrl).pipe(
       map(({ _embedded }) => _embedded.products),
       catchError((error) => {
         console.error('Error fetching product list:', error);
@@ -29,5 +28,4 @@ export class ProductService {
       })
     );
   }
-
 }
