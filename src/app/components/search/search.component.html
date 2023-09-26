@@ -1,0 +1,10 @@
+<form class="form-header" (submit)="handleSubmit($event, search)" method="GET">
+  <input
+    class="au-input au-input-xl"
+    type="text"
+    name="search"
+    placeholder="Search for data ..."
+    #search
+  />
+  <button class="au-btn-submit" type="submit">Search</button>
+</form>
