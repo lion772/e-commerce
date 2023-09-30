@@ -1,23 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from "../../services/search.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   public search: string = '';
 
-  public constructor(public searchService: SearchService) {
+  public constructor(public searchService: SearchService, private router: Router) {
   }
 
-  public ngOnInit(): void {
-  }
-
-
-  handleSubmit(e: SubmitEvent, search: HTMLInputElement) {
+  public handleSubmit(e: SubmitEvent, searchEl: HTMLInputElement) {
     e.preventDefault();
-    this.searchService.setSearchQuery(search.value);
+    this.searchService.setSearchQuery(searchEl.value);
+    this.router.navigateByUrl(`search/${searchEl.value}`);
   }
 }

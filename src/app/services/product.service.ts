@@ -37,15 +37,17 @@ export class ProductService {
 
   getProductListByQuery(q: string): Observable<Product[]> {
     console.log(q);
-    const searchUrl = `${this.baseUrl}/search?query=${q}`;
-    /*return this.http.get<GetResponse>(searchUrl).pipe(
-      map(({ _embedded }) => _embedded.products),
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}`;
+    return this.http.get<GetResponse>(searchUrl).pipe(
+      map(({ _embedded }) => {
+        console.log(_embedded.products)
+        return _embedded.products
+      }),
       catchError((error) => {
         console.error('Error fetching product list:', error);
         return throwError('Something went wrong. Please try again later.');
       })
-    );*/
-    return of([]);
+    );
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
