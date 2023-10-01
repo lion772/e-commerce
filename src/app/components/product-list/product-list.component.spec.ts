@@ -50,7 +50,7 @@ describe('ProductListComponent', () => {
       },
     ];
     const mockProducts: Product[] = mockData;
-    mockProductService.retrieveProductList.and.returnValue(of(mockProducts));
+    mockProductService.getProductListById.and.returnValue(of(mockProducts));
 
     fixture.detectChanges(); // Trigger ngOnInit
 
@@ -60,7 +60,7 @@ describe('ProductListComponent', () => {
     });
 
     //should retrieve product list on initialization
-    expect(mockProductService.retrieveProductList).toHaveBeenCalled();
+    expect(mockProductService.getProductListById).toHaveBeenCalled();
     expect(component.productList$).toBeInstanceOf(Observable);
   });
 });

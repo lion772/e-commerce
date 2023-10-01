@@ -13,7 +13,7 @@ import {query} from "@angular/animations";
 })
 export class ProductListComponent implements OnInit {
   public productList$!: Observable<Product[]>;
-  public query: string = '';
+  private query: string = '';
   private categoryId: string = '1';
 
   public constructor(
@@ -38,10 +38,9 @@ export class ProductListComponent implements OnInit {
 
   private fetchProducts() {
     if (this.query.trim().length === 0) {
-      this.productList$ = this.productService.retrieveProductList(
+      this.productList$ = this.productService.getProductListById(
         this.categoryId
       );
-
     } else {
       this.productList$ = this.productService.getProductListByQuery(
         this.query

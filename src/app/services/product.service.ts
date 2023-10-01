@@ -24,28 +24,24 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  retrieveProductList(categoryId: string = '1'): Observable<Product[]> {
+  getProductListById(categoryId: string = '1'): Observable<Product[]> {
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+    return this.getProducts(searchUrl);
+  }
+
+  getProductListByQuery(q: string): Observable<Product[]> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}`;
+    return this.getProducts(searchUrl);
+  }
+
+  private getProducts(searchUrl: string) {
     return this.http.get<GetResponse>(searchUrl).pipe(
-      map(({ _embedded }) => _embedded.products),
+      map(({_embedded}) => _embedded.products),
       catchError((error) => {
         console.error('Error fetching product list:', error);
         return throwError('Something went wrong. Please try again later.');
       })
     );
-  }
-
-  getProductListByQuery(q: string): Observable<Product[]> {
-    console.log(q);
-    const searchUrl = `${this.baseUrl}/search?query=${q}`;
-    /*return this.http.get<GetResponse>(searchUrl).pipe(
-      map(({ _embedded }) => _embedded.products),
-      catchError((error) => {
-        console.error('Error fetching product list:', error);
-        return throwError('Something went wrong. Please try again later.');
-      })
-    );*/
-    return of([]);
   }
 
   getProductCategories(): Observable<ProductCategory[]> {

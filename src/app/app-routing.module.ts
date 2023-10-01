@@ -17,12 +17,6 @@ const routes: Routes = [
     path: 'products',
     component: ProductListComponent,
   },
-
-  {
-    path: 'search',
-    component: SearchComponent
-  },
-
   {
     path: '',
     redirectTo: '/products',
