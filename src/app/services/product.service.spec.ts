@@ -52,7 +52,7 @@ describe('ProductService', () => {
     ];
     const mockProducts: Product[] = mockData;
 
-    productService.retrieveProductList().subscribe((products) => {
+    productService.getProductListById().subscribe((products) => {
       expect(products).toEqual(mockProducts);
     });
 

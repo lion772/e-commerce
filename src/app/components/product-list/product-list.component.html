@@ -5,7 +5,7 @@
         <!-- Loop over the collection of products -->
         <ng-container *ngIf="(productList$ | async)?.length!== 0; else emptyArray">
           <div
-            *ngFor="let product of productList$ | async as products"
+            *ngFor="let product of productList$ | async"
             class="col-md-3"
           >
             <div class="product-box">
