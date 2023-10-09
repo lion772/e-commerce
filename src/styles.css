@@ -119,6 +119,7 @@ a:hover {
 .page-container {
   background: #e5e5e5;
   padding-left: 200px;
+  min-height: 95vh;
 }
 
 .main-content {

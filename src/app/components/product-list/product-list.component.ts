@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Product} from 'src/app/common/product';
 import {ProductService} from 'src/app/services/product.service';
@@ -19,7 +19,8 @@ export class ProductListComponent implements OnInit {
   public constructor(
     public productService: ProductService,
     private searchService: SearchService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -47,4 +48,9 @@ export class ProductListComponent implements OnInit {
       );
     }
   }
+
+  public onClickProduct(productId: number) {
+    this.router.navigateByUrl(`/products/${productId}`);
+  }
+
 }

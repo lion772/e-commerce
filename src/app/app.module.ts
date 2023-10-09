@@ -8,9 +8,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent],
+  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent, ProductDetailComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],

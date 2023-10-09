@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../common/product';
-import {Observable, catchError, map, throwError, of} from 'rxjs';
+import {Observable, catchError, map, throwError, of, Subscription} from 'rxjs';
 import { ProductCategory } from '../common/product-category';
 
 interface GetResponse {
@@ -50,6 +50,16 @@ export class ProductService {
       catchError((error) => {
         console.error('Error fetching product category list:', error);
         return throwError('Something went wrong. Please try again later.');
+      })
+    );
+  }
+
+  getProductById(productId: string ): Observable<Product | null>  {
+    return this.http.get<Product | null>(this.baseUrl + '/' + productId).pipe(
+      map((res) => res),
+      catchError((error) => {
+        console.error('Error fetching product list:', error);
+        return of(null);
       })
     );
   }
