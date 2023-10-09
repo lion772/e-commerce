@@ -1,0 +1,20 @@
+<div class="container text-center">
+  <ng-container *ngIf="!(isLoading || productNotFound)">
+    <!-- Display product information when data is available -->
+    <ng-container *ngIf="selectedProduct$ | async as product">
+      <h1>{{ product.name }}</h1>
+      <img [src]="product.imageUrl" [alt]="product.description">
+      <p>{{ product?.description }}</p>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="isLoading">
+    <!-- Show a loading indicator while data is being fetched -->
+    <div class="loading-indicator">
+      Loading...
+    </div>
+  </ng-container>
+  <ng-container *ngIf="productNotFound">
+    <!-- Display "not found" message when product is not found -->
+    <h1>No product with this id has been found. <br> :(</h1>
+  </ng-container>
+</div>
