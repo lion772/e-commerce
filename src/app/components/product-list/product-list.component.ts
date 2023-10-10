@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
   private categoryId: string = '1';
   public clickedPage: number = 0; // Clicked page
   public currentPage: number = 0; // Current page
-  public size: number	= 10; // Items per page
+  public size: number	= 5; // Items per page
   public totalElements: number = 100; // Total number of items
   public totalPages: number =	10; // Total number of pages
 
@@ -73,9 +73,24 @@ export class ProductListComponent implements OnInit {
     this.router.navigateByUrl(`/products/${productId}`);
   }
 
-  public onPageChange(clickedPage: any) {
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.onPageChange(this.currentPage);
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.onPageChange(this.currentPage);
+    }
+  }
+
+  public onPageChange(event: any) {
     // Handle page change event
-    this.clickedPage = (+clickedPage.target.text) - 1;
+    this.clickedPage = event.target ? (+event.target.text) - 1: event - 1;
+
     // You can load data for the new page here
     this.fetchProducts(); //fetch new list of products with the given clicked page
     this.products = this.getItemsForPage();

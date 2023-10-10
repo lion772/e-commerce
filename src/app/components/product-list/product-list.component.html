@@ -21,12 +21,30 @@
               <a (click)="onClickProduct(product.id)" class="primary-btn">Add to cart</a>
             </div>
           </div>
-          <ngb-pagination
-            [(page)]="currentPage"
-            [pageSize]="size"
-            [collectionSize]="totalElements"
-            (click)="onPageChange($event)"
-          ></ngb-pagination>
+
+          <div class="container d-flex">
+            <button
+              class="btn btn-close-white"
+              (click)="previousPage()"
+              [disabled]="currentPage === 1"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </button>
+            <ngb-pagination
+              [(page)]="currentPage"
+              [pageSize]="size"
+              [collectionSize]="totalElements"
+              (click)="onPageChange($event)"
+              [directionLinks]="false"></ngb-pagination>
+            <button
+              class="btn btn-close-white"
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+               <span aria-hidden="true">&raquo;</span>
+            </button>
+          </div>
+
         </ng-container>
         <ng-template #emptyArray>
           <h2 class="text-center">No item found</h2>
