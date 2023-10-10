@@ -16,7 +16,6 @@ export class ProductListComponent implements OnInit {
   public products: Product[] = [];
   private query: string = '';
   private categoryId: string = '1';
-  public clickedPage: number = 0; // Clicked page
   public currentPage: number = 0; // Current page
   public size: number	= 5; // Items per page
   public totalElements: number = 100; // Total number of items
@@ -47,7 +46,7 @@ export class ProductListComponent implements OnInit {
     if (this.query.trim().length === 0) {
       this.productService.getProductListById(
         this.categoryId,
-        this.clickedPage,
+        this.currentPage,
         this.size
       ).subscribe((data: ProductsMetadata) => {
         this.handleProductsMetadata(data);
@@ -89,7 +88,8 @@ export class ProductListComponent implements OnInit {
 
   public onPageChange(event: any) {
     // Handle page change event
-    this.clickedPage = event.target ? (+event.target.text) - 1: event - 1;
+    this.currentPage = event.target ? +event.target.text: event ;
+    this.currentPage--;
 
     // You can load data for the new page here
     this.fetchProducts(); //fetch new list of products with the given clicked page
