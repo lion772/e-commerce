@@ -38,4 +38,8 @@ export class ProductDetailComponent implements OnInit{
 
   }
 
+  public onAddToCart(id: number) {
+    //TODO: write logic to add product to cart
+    return;
+  }
 }

@@ -9,12 +9,15 @@
             class="col-md-3"
           >
             <div class="product-box">
-              <img
-                [src]="product.imageUrl"
-                [alt]="product.name"
-                class="img-responsive"
-                height="50"
-              />
+              <a routerLink="/products/{{product.id}}"
+              >
+                <img
+                  [src]="product.imageUrl"
+                  [alt]="product.name"
+                  class="img-responsive"
+                  height="50"
+                />
+              </a>
               <h1>{{ product.name }}</h1>
               <div class="price">{{ product.unitPrice | currency : "EUR" }}</div>
               <a (click)="onClickProduct(product.id)" class="primary-btn">Add to cart</a>

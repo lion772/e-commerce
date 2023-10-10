@@ -88,6 +88,7 @@ h6 {
 
 a {
   display: inline-block;
+  cursor: pointer;
 }
 
 a:active,
