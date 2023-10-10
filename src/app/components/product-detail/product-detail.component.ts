@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {ProductService} from "../../services/product.service";
 import {Product} from "../../common/product";
 import {Observable} from "rxjs";
@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit{
-  public selectedProduct$!: Observable< Product | null>;
+  public product!: Product;
   public isLoading: boolean = true;
   public productNotFound: boolean = false;
   public constructor(
@@ -20,22 +20,26 @@ export class ProductDetailComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      const productId = params['id'];
-      this.selectedProduct$ = this.productService.getProductById(productId) as Observable<Product | null>;
-      this.selectedProduct$.subscribe(
-        (product) => {
-          if (product === null) {
-            this.productNotFound = true; // Set the flag to true when no product is found
-          }
-          this.isLoading = false;
-        },
-        (error) => {
-          this.productNotFound = true; // Set the flag to true on error
-          this.isLoading = false;
-        }
-      );
+      this.handleProductDetails(params);
     });
+  }
 
+  private handleProductDetails(params: Params) {
+    const productId = params['id'];
+    this.isLoading = true;
+    this.productService.getProductById(productId).subscribe(
+      (product) => {
+        if (!product) {
+          this.productNotFound = true;
+        } else {
+          this.product = product as Product;
+        }
+      },
+      (error) => {
+        this.productNotFound = true;
+      },
+      () => this.isLoading = false
+    );
   }
 
   public onAddToCart(id: number) {

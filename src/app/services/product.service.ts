@@ -55,7 +55,7 @@ export class ProductService {
   }
 
   getProductById(productId: string ): Observable<Product | null>  {
-    return this.http.get<Product | null>(this.baseUrl + '/' + productId).pipe(
+    return this.http.get<Product>(this.baseUrl + '/' + productId).pipe(
       map((res) => res),
       catchError((error) => {
         console.error('Error fetching product list:', error);
