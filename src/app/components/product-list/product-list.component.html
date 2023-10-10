@@ -3,9 +3,9 @@
     <div class="container-fluid">
       <div class="row">
         <!-- Loop over the collection of products -->
-        <ng-container *ngIf="(productList$ | async)?.length!== 0; else emptyArray">
+        <ng-container *ngIf="products.length !== 0; else emptyArray">
           <div
-            *ngFor="let product of productList$ | async"
+            *ngFor="let product of products"
             class="col-md-3"
           >
             <div class="product-box">
@@ -21,11 +21,17 @@
               <a (click)="onClickProduct(product.id)" class="primary-btn">Add to cart</a>
             </div>
           </div>
+          <ngb-pagination
+            [(page)]="currentPage"
+            [pageSize]="size"
+            [collectionSize]="totalElements"
+            (click)="onPageChange($event)"
+          ></ngb-pagination>
         </ng-container>
-
         <ng-template #emptyArray>
           <h2 class="text-center">No item found</h2>
         </ng-template>
+
 
       </div>
     </div>
