@@ -16,10 +16,10 @@ export class ProductListComponent implements OnInit {
   public products: Product[] = [];
   private query: string = '';
   private categoryId: string = '1';
-  public currentPage: number = 0; // Current page
-  public size: number	= 5; // Items per page
-  public totalElements: number = 100; // Total number of items
-  public totalPages: number =	10; // Total number of pages
+  public currentPage: number = 0;
+  public size: number	= 5;
+  public totalElements: number = 100;
+  public totalPages: number =	10;
 
   public constructor(
     public productService: ProductService,
@@ -62,7 +62,7 @@ export class ProductListComponent implements OnInit {
   private handleProductsMetadata(data: ProductsMetadata) {
     this.products = data.products;
     const {number, size, totalElements, totalPages} = data.page;
-    this.currentPage = number + 1;
+    this.currentPage = number + 1; // Angular bootstrap pagination is 1-based
     this.size = size;
     this.totalElements = totalElements;
     this.totalPages = totalPages;
@@ -72,35 +72,12 @@ export class ProductListComponent implements OnInit {
     this.router.navigateByUrl(`/products/${productId}`);
   }
 
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.onPageChange(this.currentPage);
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.onPageChange(this.currentPage);
-    }
-  }
-
-  public onPageChange(event: any) {
-    // Handle page change event
-    this.currentPage = event.target ? +event.target.text: event ;
-    this.currentPage--;
-
-    // You can load data for the new page here
+  public onPageHasChanged(clickedPage: number) {
+    this.currentPage = clickedPage;
+    this.currentPage--; // Spring boot REST Api is 0-based, hence the current page is decreased by one.
     this.fetchProducts(); //fetch new list of products with the given clicked page
-    this.products = this.getItemsForPage();
+    //TODO: when clicking on back arrow on the browser on the fifth item of the pagination, it goes back to first item
   }
 
-  public getItemsForPage(): Product[] {
-    // Implement logic to retrieve or filter items based on the current page and size values.
-    const startIndex = (this.currentPage - 1) * this.size;
-    const endIndex = startIndex + this.size;
-    return this.products.slice(startIndex, endIndex);
-  }
 
 }

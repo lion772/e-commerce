@@ -4,7 +4,7 @@ import { Product } from '../common/product';
 import {Observable, catchError, map, throwError, of, Subscription} from 'rxjs';
 import { ProductCategory } from '../common/product-category';
 
-interface GetResponse {
+interface GetResponseProducts {
   _embedded: {
     products: Product[];
   };
@@ -50,7 +50,7 @@ export class ProductService {
   }
 
   private getProducts(searchUrl: string): Observable<ProductsMetadata> {
-    return this.http.get<GetResponse>(searchUrl).pipe(
+    return this.http.get<GetResponseProducts>(searchUrl).pipe(
       map(({_embedded, page}) => {
         return {products: _embedded.products, page}
       }),

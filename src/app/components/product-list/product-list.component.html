@@ -21,29 +21,14 @@
               <a (click)="onClickProduct(product.id)" class="primary-btn">Add to cart</a>
             </div>
           </div>
-
-          <div class="container d-flex">
-            <button
-              class="btn btn-close-white"
-              (click)="previousPage()"
-              [disabled]="currentPage === 1"
-            >
-              <span aria-hidden="true">&laquo;</span>
-            </button>
-            <ngb-pagination
-              [(page)]="currentPage"
-              [pageSize]="size"
-              [collectionSize]="totalElements"
-              (click)="onPageChange($event)"
-              [directionLinks]="false"></ngb-pagination>
-            <button
-              class="btn btn-close-white"
-              (click)="nextPage()"
-              [disabled]="currentPage === totalPages"
-            >
-               <span aria-hidden="true">&raquo;</span>
-            </button>
-          </div>
+          <app-pagination
+            (productsEvent)="products = $event"
+            (currentPageChanged)="onPageHasChanged($event)"
+            [currentPage]="currentPage"
+            [size]="size"
+            [totalElements]="totalElements"
+            [totalPages]="totalPages"
+            [products]="products" />
 
         </ng-container>
         <ng-template #emptyArray>
