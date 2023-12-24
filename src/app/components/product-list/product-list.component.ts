@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {Product} from 'src/app/common/product';
 import {ProductService, ProductsMetadata} from 'src/app/services/product.service';
 import {SearchService} from "../../services/search.service";
-import {query} from "@angular/animations";
 
 @Component({
   selector: 'app-product-list',
@@ -15,8 +14,9 @@ export class ProductListComponent implements OnInit {
   public productList$!: Observable<ProductsMetadata>;
   public products: Product[] = [];
   private query: string = '';
-  private categoryId: string = '1';
-  public currentPage: number = 0;
+  private curCategoryId: string = '1';
+  private prevCategoryId: string = '1';
+  public currentPage: number = 1;
   public size: number	= 5;
   public totalElements: number = 100;
   public totalPages: number =	10;
@@ -31,7 +31,10 @@ export class ProductListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.categoryId = params['id'];
+      this.curCategoryId = params['id'];
+      if (this.prevCategoryId !== this.curCategoryId) {
+        this.currentPage = 1;
+      }
       this.fetchProducts();
     });
     this.searchService.searchQuery$.subscribe({
@@ -43,10 +46,11 @@ export class ProductListComponent implements OnInit {
   }
 
   private fetchProducts() {
+    this.prevCategoryId = this.curCategoryId;
     if (this.query.trim().length === 0) {
       this.productService.getProductListById(
-        this.categoryId,
-        this.currentPage,
+        this.curCategoryId,
+        this.currentPage - 1,
         this.size
       ).subscribe((data: ProductsMetadata) => {
         this.handleProductsMetadata(data);
@@ -74,7 +78,6 @@ export class ProductListComponent implements OnInit {
 
   public onPageHasChanged(clickedPage: number) {
     this.currentPage = clickedPage;
-    this.currentPage--; // Spring boot REST Api is 0-based, hence the current page is decreased by one.
     this.fetchProducts(); //fetch new list of products with the given clicked page
     //TODO: when clicking on back arrow on the browser on the fifth item of the pagination, it goes back to first item
   }
