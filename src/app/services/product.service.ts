@@ -38,14 +38,14 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProductListById(categoryId: string = '1', page = 1, size = 10): Observable<ProductsMetadata> {
+  getProductListById(categoryId: string = '1', page: number = 1, size: number = 10): Observable<ProductsMetadata> {
     //const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${size}`;
     return this.getProducts(searchUrl);
   }
 
-  getProductListByQuery(q: string): Observable<ProductsMetadata> {
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}`;
+  getProductListByQuery(page: number = 1, size: number = 10, q: string): Observable<ProductsMetadata> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}&page=${page}&size=${size}`;
     return this.getProducts(searchUrl);
   }
 
