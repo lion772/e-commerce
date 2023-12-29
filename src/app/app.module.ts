@@ -8,10 +8,13 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { PaginationComponent } from './shared/pagination/pagination.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
+  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent, ProductDetailComponent, PaginationComponent],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

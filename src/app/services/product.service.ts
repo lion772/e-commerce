@@ -1,18 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../common/product';
-import {Observable, catchError, map, throwError, of} from 'rxjs';
+import {Observable, catchError, map, throwError, of, Subscription} from 'rxjs';
 import { ProductCategory } from '../common/product-category';
 
-interface GetResponse {
+interface GetResponseProducts {
   _embedded: {
     products: Product[];
   };
+  page: Pagination
+
 }
 interface GetResponseCategory {
   _embedded: {
     productCategory: ProductCategory[];
   };
+}
+
+interface Pagination {
+  size: number,
+  totalElements: number,
+  totalPages	: number,
+  number: number,
+}
+
+export interface ProductsMetadata {
+  products: Product[],
+  page: Pagination
 }
 
 @Injectable({
@@ -24,19 +38,22 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProductListById(categoryId: string = '1'): Observable<Product[]> {
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+  getProductListById(categoryId: string = '1', page: number = 1, size: number = 10): Observable<ProductsMetadata> {
+    //const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${size}`;
     return this.getProducts(searchUrl);
   }
 
-  getProductListByQuery(q: string): Observable<Product[]> {
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}`;
+  getProductListByQuery(page: number = 1, size: number = 10, q: string): Observable<ProductsMetadata> {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${q}&page=${page}&size=${size}`;
     return this.getProducts(searchUrl);
   }
 
-  private getProducts(searchUrl: string) {
-    return this.http.get<GetResponse>(searchUrl).pipe(
-      map(({_embedded}) => _embedded.products),
+  private getProducts(searchUrl: string): Observable<ProductsMetadata> {
+    return this.http.get<GetResponseProducts>(searchUrl).pipe(
+      map(({_embedded, page}) => {
+        return {products: _embedded.products, page}
+      }),
       catchError((error) => {
         console.error('Error fetching product list:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -50,6 +67,15 @@ export class ProductService {
       catchError((error) => {
         console.error('Error fetching product category list:', error);
         return throwError('Something went wrong. Please try again later.');
+      })
+    );
+  }
+
+  getProductById(productId: string ): Observable<Product | null>  {
+    return this.http.get<Product>(this.baseUrl + '/' + productId).pipe(
+      catchError((error) => {
+        console.error('Error fetching product list:', error);
+        return of(null);
       })
     );
   }

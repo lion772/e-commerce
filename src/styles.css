@@ -88,6 +88,7 @@ h6 {
 
 a {
   display: inline-block;
+  cursor: pointer;
 }
 
 a:active,
@@ -119,6 +120,7 @@ a:hover {
 .page-container {
   background: #e5e5e5;
   padding-left: 200px;
+  min-height: 95vh;
 }
 
 .main-content {
@@ -945,7 +947,7 @@ footer ul li {
     text-align: center;
   }
   .product-box {
-    text-align: centerg;
+    text-align: center;
   }
   .page-container {
     position: relative;

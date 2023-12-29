@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+
+/* Styles for screens with a maximum width of 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+  img {
+    height: 30vh;
+  }
+}
+
+/* Styles for screens with a width between 481px and 768px (e.g., larger mobile devices and small tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  img {
+    height: 40vh;
+  }
+}
+
+/* Styles for screens with a width between 769px and 1024px (e.g., tablets and small desktops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  img {
+    height: 50vh;
+  }
+}
+
+/* Styles for screens with a minimum width of 1025px (e.g., larger desktops) */
+@media (min-width: 1025px) {
+  img {
+    height: 60vh;
+  }
+}

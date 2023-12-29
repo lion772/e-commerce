@@ -8,10 +8,6 @@
   display: block;
 }
 
-.product-box img {
-  width: 100%;
-}
-
 .product-box a {
   margin-bottom: 6px;
 }
@@ -27,15 +23,15 @@
 }
 .product-box {
   margin-bottom: 60px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px; /* Add rounded corners */
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  overflow: scroll;
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  text-overflow: ellipsis;
+  text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -52,6 +48,7 @@
 .product-box h1 {
   font-size: 18px;
   border-bottom: 1px solid #ccc;
+  width: 100%;
   padding-bottom: 3px;
   font-weight: 600;
   padding-top: 12px;
@@ -63,3 +60,46 @@
   font-weight: 500;
   color: #585858;
 }
+
+/* Styles for screens with a maximum width of 480px (e.g., mobile devices) */
+@media (max-width: 480px) {
+  img {
+    height: 30vh;
+  }
+}
+
+/* Styles for screens with a width between 481px and 768px (e.g., larger mobile devices and small tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  img {
+    height: 30vh;
+  }
+}
+
+/* Styles for screens with a width between 769px and 1024px (e.g., tablets and small desktops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .product-box {
+    height: 350px;
+    padding: 20px;
+  }
+}
+
+/* Styles for screens with a minimum width of 1025px (e.g., larger desktops) */
+@media (min-width: 1025px) and (max-width: 1550px) {
+  .product-box {
+    height: 350px;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  img {
+    height: 20vh;
+  }
+
+  .product-box {
+    height: 350px;
+    width: 350px;
+    padding: 20px;
+  }
+}
+

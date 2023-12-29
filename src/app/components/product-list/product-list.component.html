@@ -3,28 +3,47 @@
     <div class="container-fluid">
       <div class="row">
         <!-- Loop over the collection of products -->
-        <ng-container *ngIf="(productList$ | async)?.length!== 0; else emptyArray">
+        <ng-container *ngIf="products.length !== 0; else emptyArray">
           <div
-            *ngFor="let product of productList$ | async"
+            *ngFor="let product of products"
             class="col-md-3"
           >
             <div class="product-box">
-              <img
-                [src]="product.imageUrl"
-                [alt]="product.name"
-                class="img-responsive"
-                height="50"
-              />
+              <a routerLink="/products/{{product.id}}"
+              >
+                <img
+                  [src]="product.imageUrl"
+                  [alt]="product.name"
+                />
+              </a>
               <h1>{{ product.name }}</h1>
               <div class="price">{{ product.unitPrice | currency : "EUR" }}</div>
-              <a href="#" class="primary-btn">Add to cart</a>
+              <a (click)="onClickProduct(product.id)" class="primary-btn">Add to cart</a>
             </div>
           </div>
-        </ng-container>
+          <app-pagination
+            (currentPageChanged)="onPageHasChanged($event)"
+            [currentPage]="currentPage"
+            [size]="pageSize"
+            [totalElements]="totalElements"
+            [totalPages]="totalPages"
+            [products]="products" />
 
+          <div class="d-flex justify-content-end">
+            <span class="me-2">Page Size</span>
+            <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+              <option (select)="true">5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>
+          </div>
+
+        </ng-container>
         <ng-template #emptyArray>
           <h2 class="text-center">No item found</h2>
         </ng-template>
+
 
       </div>
     </div>
