@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-cart-status',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./cart-status.component.css']
 })
 export class CartStatusComponent {
+
+  @Output() itemAddedEmitter = new EventEmitter<any>();
+
+  private addToCart() {
+    this.itemAddedEmitter.emit("item has been added");
+  }
 
 }

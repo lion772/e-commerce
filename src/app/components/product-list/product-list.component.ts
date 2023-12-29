@@ -84,8 +84,9 @@ export class ProductListComponent implements OnInit {
     this.totalPages = totalPages;
   }
 
-  public onClickProduct(productId: number) {
-    this.router.navigateByUrl(`/products/${productId}`);
+  public onAddProductToCart(productAdded: Product) {
+    //this.router.navigateByUrl(`/products/${productId}`);
+
   }
 
   public onPageHasChanged(clickedPage: number) {
