@@ -22,13 +22,22 @@
             </div>
           </div>
           <app-pagination
-            (productsEvent)="products = $event"
             (currentPageChanged)="onPageHasChanged($event)"
             [currentPage]="currentPage"
-            [size]="size"
+            [size]="pageSize"
             [totalElements]="totalElements"
             [totalPages]="totalPages"
             [products]="products" />
+
+          <div class="d-flex justify-content-end">
+            <span class="me-2">Page Size</span>
+            <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+              <option (select)="true">5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>
+          </div>
 
         </ng-container>
         <ng-template #emptyArray>

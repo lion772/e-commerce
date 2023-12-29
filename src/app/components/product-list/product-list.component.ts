@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Product} from 'src/app/common/product';
@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   private curCategoryId: string = '1';
   private prevCategoryId: string = '1';
   public currentPage: number = 1;
-  public size: number	= 5;
+  public pageSize: number	= 5;
   public totalElements: number = 100;
   public totalPages: number =	10;
 
@@ -51,7 +51,7 @@ export class ProductListComponent implements OnInit {
       this.productService.getProductListById(
         this.curCategoryId,
         this.currentPage - 1,
-        this.size
+        this.pageSize
       ).subscribe((data: ProductsMetadata) => {
         this.handleProductsMetadata(data);
       })
@@ -67,7 +67,7 @@ export class ProductListComponent implements OnInit {
     this.products = data.products;
     const {number, size, totalElements, totalPages} = data.page;
     this.currentPage = number + 1; // Angular bootstrap pagination is 1-based
-    this.size = size;
+    this.pageSize = size;
     this.totalElements = totalElements;
     this.totalPages = totalPages;
   }
@@ -82,5 +82,9 @@ export class ProductListComponent implements OnInit {
     //TODO: when clicking on back arrow on the browser on the fifth item of the pagination, it goes back to first item
   }
 
-
+  public updatePageSize(pageSelectValue: string) {
+    this.pageSize = +pageSelectValue;
+    this.currentPage = 1;
+    this.fetchProducts();
+  }
 }
