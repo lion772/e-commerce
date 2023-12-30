@@ -88,7 +88,6 @@ export class ProductListComponent implements OnInit {
   }
 
   public onAddProductToCart(productAdded: Product) {
-    //this.router.navigateByUrl(`/products/${productId}`);
     const newCartItem = new CartItem(
       productAdded.id,
       productAdded.name,
@@ -97,6 +96,10 @@ export class ProductListComponent implements OnInit {
       1
     );
     this.cartService.setNewCartItem(newCartItem);
+  }
+
+  public navigationToDetailPage(productId: number) {
+    this.router.navigateByUrl(`/products/${productId}`);
   }
 
   public onPageHasChanged(clickedPage: number) {

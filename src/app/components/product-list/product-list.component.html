@@ -9,7 +9,7 @@
             class="col-md-3"
           >
             <div class="product-box">
-              <a routerLink="/products/{{product.id}}"
+              <a routerLink="/products/{{product.id}}" (click)="navigationToDetailPage(product.id)"
               >
                 <img
                   [src]="product.imageUrl"

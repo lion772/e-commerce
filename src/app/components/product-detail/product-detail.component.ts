@@ -3,20 +3,25 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ProductService} from "../../services/product.service";
 import {Product} from "../../common/product";
 import {Observable} from "rxjs";
+import {CartItem} from "../../common/cart-item";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit{
+export class ProductDetailComponent implements OnInit {
   public product!: Product;
   public isLoading: boolean = true;
   public productNotFound: boolean = false;
+
   public constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private cartService: CartService
+  ) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -42,8 +47,14 @@ export class ProductDetailComponent implements OnInit{
     );
   }
 
-  public onAddToCart(id: number) {
-    //TODO: write logic to add product to cart
-    return;
+  public onAddProductToCart(productAdded: Product) {
+    const newCartItem = new CartItem(
+      productAdded.id,
+      productAdded.name,
+      productAdded.imageUrl,
+      productAdded.unitPrice,
+      1
+    );
+    this.cartService.setNewCartItem(newCartItem);
   }
 }
