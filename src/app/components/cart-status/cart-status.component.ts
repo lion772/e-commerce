@@ -1,23 +1,28 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {CartService} from "../../services/cart.service";
 import {CartItem} from "../../common/cart-item";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-cart-status',
   templateUrl: './cart-status.component.html',
   styleUrls: ['./cart-status.component.css']
 })
-export class CartStatusComponent implements OnInit {
+export class CartStatusComponent implements OnInit, OnDestroy {
   public cartItems: CartItem[] = [];
   public totalCartPrice: number = 0;
   public totalQuantity: number = 0;
+  private cartServiceSubcription!: Subscription;
 
   public constructor(public cartService: CartService) {
   }
 
   public ngOnInit() {
-    this.cartService.cartItem$.subscribe((currentItem: CartItem | null) => this.handleCartItems(currentItem));
+    this.updateCartStatus();
+  }
 
+  private updateCartStatus() {
+    this.cartServiceSubcription = this.cartService.cartItem$.subscribe((currentItem: CartItem | null) => this.handleCartItems(currentItem));
     this.calculateTotalCartPrice();
     this.calculateTotalQuantity();
   }
@@ -44,6 +49,10 @@ export class CartStatusComponent implements OnInit {
 
   private calculateTotalQuantity(): void {
     this.totalQuantity = this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  ngOnDestroy() {
+    this.cartServiceSubcription.unsubscribe();
   }
 
 }
