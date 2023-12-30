@@ -89,13 +89,13 @@ export class ProductListComponent implements OnInit {
 
   public onAddProductToCart(productAdded: Product) {
     //this.router.navigateByUrl(`/products/${productId}`);
-    const newCartItem: CartItem = {
-      id: String(productAdded.id),
-      name: productAdded.name,
-      imageUrl: productAdded.imageUrl,
-      unitPrice: productAdded.unitPrice,
-      quantity: 1
-    }
+    const newCartItem = new CartItem(
+      productAdded.id,
+      productAdded.name,
+      productAdded.imageUrl,
+      productAdded.unitPrice,
+      1
+    );
     this.cartService.setNewCartItem(newCartItem);
   }
 
