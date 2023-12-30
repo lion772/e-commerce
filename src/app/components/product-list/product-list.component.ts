@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {Product} from 'src/app/common/product';
 import {ProductService, ProductsMetadata} from 'src/app/services/product.service';
 import {SearchService} from "../../services/search.service";
+import {CartService} from "../../services/cart.service";
+import {CartItem} from "../../common/cart-item";
 
 @Component({
   selector: 'app-product-list',
@@ -26,6 +28,7 @@ export class ProductListComponent implements OnInit {
     public productService: ProductService,
     private searchService: SearchService,
     private route: ActivatedRoute,
+    public cartService: CartService,
     private router: Router
   ) {
   }
@@ -86,7 +89,14 @@ export class ProductListComponent implements OnInit {
 
   public onAddProductToCart(productAdded: Product) {
     //this.router.navigateByUrl(`/products/${productId}`);
-
+    const newCartItem: CartItem = {
+      id: String(productAdded.id),
+      name: productAdded.name,
+      imageUrl: productAdded.imageUrl,
+      unitPrice: productAdded.unitPrice,
+      quantity: 1
+    }
+    this.cartService.setNewCartItem(newCartItem);
   }
 
   public onPageHasChanged(clickedPage: number) {
