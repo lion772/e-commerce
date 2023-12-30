@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {Product} from 'src/app/common/product';
 import {ProductService, ProductsMetadata} from 'src/app/services/product.service';
 import {SearchService} from "../../services/search.service";
+import {CartService} from "../../services/cart.service";
+import {CartItem} from "../../common/cart-item";
 
 @Component({
   selector: 'app-product-list',
@@ -26,6 +28,7 @@ export class ProductListComponent implements OnInit {
     public productService: ProductService,
     private searchService: SearchService,
     private route: ActivatedRoute,
+    public cartService: CartService,
     private router: Router
   ) {
   }
@@ -84,7 +87,18 @@ export class ProductListComponent implements OnInit {
     this.totalPages = totalPages;
   }
 
-  public onClickProduct(productId: number) {
+  public onAddProductToCart(productAdded: Product) {
+    const newCartItem = new CartItem(
+      productAdded.id,
+      productAdded.name,
+      productAdded.imageUrl,
+      productAdded.unitPrice,
+      1
+    );
+    this.cartService.setNewCartItem(newCartItem);
+  }
+
+  public navigationToDetailPage(productId: number) {
     this.router.navigateByUrl(`/products/${productId}`);
   }
 

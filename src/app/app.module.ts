@@ -11,9 +11,10 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { PaginationComponent } from './shared/pagination/pagination.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent, ProductDetailComponent, PaginationComponent],
+  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent, ProductDetailComponent, PaginationComponent, CartStatusComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
